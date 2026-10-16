@@ -1,11 +1,32 @@
-import { TaskItem } from "./TaskItem";
+import type { Task } from '../models/task.interface';
+import { TaskItem } from './TaskItem';
 
-export function TaskList() {
+interface TaskListProps {
+  tasks: Task[];
+}
+
+export function TaskList({ tasks }: TaskListProps) {
+  const resultLabel = tasks.length === 1 ? '1 tarea' : `${tasks.length} tareas`;
+
   return (
-    <ul>
-      <TaskItem text="Tarea completada" completed={true} />
-      <TaskItem text="Tarea pendiente 1" completed={false} />
-      <TaskItem text="Tarea pendiente 2" completed={false} />
-    </ul>
+    <section className="panel" aria-labelledby="task-list-title">
+      <div className="section-heading">
+        <p className="section-heading_eyebrow">Actividades</p>
+        <h2 id="task-list-title">Tareas registradas</h2>
+        <span className="result-count">{resultLabel}</span>
+      </div>
+      {tasks.length === 0 ? (
+        <div className="empty-state" role="status">
+          <h3>No hay tareas registradas</h3>
+          <p>La colección está vacía. Las nuevas tareas aparecerán en esta sección.</p>
+        </div>
+      ) : (
+        <div className="task-list" role="list">
+          {tasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </div>
+      )}
+    </section>
   );
 }

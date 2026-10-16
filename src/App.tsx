@@ -1,21 +1,20 @@
-import { AppHeader } from "./components/AppHeader";
-import { TaskForm } from "./components/TaskForm";
-import { TaskFilters } from "./components/TaskFilters";
-import { TaskSummary } from "./components/TaskSummary";
-import { TaskList } from "./components/TaskList";
-import { AppFooter } from "./components/AppFooter";
+import { AppHeader } from './components/AppHeader';
+import { TaskForm } from './components/TaskForm';
+import { TaskFilters } from './components/TaskFilters';
+import { TaskSummary } from './components/TaskSummary';
+import { TaskList } from './components/TaskList';
+import { tasks } from './data/tasks';
 
-function App() {
+export default function App() {
   return (
-    <>
+    <div className="app-shell">
       <AppHeader title="Administrador de tareas" />
-      <TaskForm />
-      <TaskFilters />
-      <TaskSummary total={3} completed={1} />
-      <TaskList />
-      <AppFooter course="Diseño Frontend con Frameworks" />
-    </>
+      <main className="app-main">
+        <TaskForm />
+        <TaskFilters />
+        <TaskSummary tasks={tasks} />
+        <TaskList tasks={tasks} />
+      </main>
+    </div>
   );
 }
-
-export default App;
